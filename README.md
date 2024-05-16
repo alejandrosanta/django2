@@ -68,3 +68,41 @@ Crear Cuenta: [Enlace a GitHub](https://github.com)
 `$ python3 manage.py runserver`
 
 > La pagina inicial se puede ver en http://127.0.0.1:8000
+
+### 6. Crear URLs and Views
+* Dentro del directorio creado por el proyecto, modificar urls.py
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    # path('blog', include("blog.urls")) # http:localhost:8000/blog/posts/my-first-post
+    path('', include("blog.urls"))
+]
+```
+
+* Dentro del directorio creado por la app, crear un fichero llamado urls.py
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path("", views.starting_page, name="starting-page"),
+    path("posts", views.posts, name="posts-page"),
+    path("posts/<slug:slug>", views.post_detail, name="post-detail-page"),
+]
+```
+* views.py
+```python
+from django.shortcuts import render
+
+def starting_page(request):
+    pass
+
+def posts(request):
+    pass
+
+def post_detail(request):
+    pass
+```
