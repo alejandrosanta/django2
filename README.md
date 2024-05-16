@@ -49,7 +49,7 @@ Crear Cuenta: [Enlace a GitHub](https://github.com)
 
 ### 2. Crear el repositorio
 [Enlace a GitHub](https://github.com/)
-> No crear el README.md para eviat conflictos con el primer push
+> No crear el README.md para eviar conflictos con el primer push
 
 ### 3. Unir el proyecto local con el repositorio
 `$ git init`
@@ -60,3 +60,11 @@ Crear Cuenta: [Enlace a GitHub](https://github.com)
 `$ git remote add origin https://github.com/user/my_proyect.git`
 `$ git push -u origin main`
 > Solo si hay un error con el primer push se puede ejecutar `$ git push --force origin main`
+
+### 4. Crear una nueva App en Django
+`$ python3 manage.py startapp my_app`
+
+### 5. Correr el servidor
+`$ python3 manage.py runserver`
+
+> La pagina inicial se puede ver en http://127.0.0.1:8000
