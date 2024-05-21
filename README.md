@@ -106,3 +106,57 @@ def posts(request):
 def post_detail(request):
     pass
 ```
+
+### 7. Agregar Templates
+* Crear directorio templates en el directorio raiz y un fichero llamado base.html con la estructura basica HTML5
+1. Block title
+2. Block css_files
+3. Block content
+> templates/base.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        {% block css_files %}{%  endblock %}    
+    </head>
+    <body>
+        {% block content %}{%  endblock %}
+    </body>
+</html>
+```
+* Crear directorio templates en el directorio de la App, otro directorio con el nombre de la App y un fichero llamado index.html que hereda desde base.html 
+`{% extends "base.html" %}`
+Pero para hacer base.html global identificador debo anadir las siguientes lineas en:
+> settings.py
+```python
+TEMPLATES = [
+    {
+        'DIRS': [ BASE_DIR / "templates"],
+```
+```python
+INSTALLED_APPS = [
+    'blog',
+```
+
+> app_name/templates/app_name/index.html
+```html
+{% extends "base.html" %}
+
+{% block title %}
+    My Blog
+{% endblock %}
+{% block content %}
+    <h1>Welcome to my blog</h1>
+{% endblock %}
+```
+* Hacer que el template index.html render cuando se accede a la pagina inicial
+
+> app_name/views.py
+
+```python
+def starting_page(request):
+    return render(request, "blog/index.html")
+```
