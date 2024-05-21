@@ -182,3 +182,10 @@ STATICFILES_DIRS = [
     <link rel="stylesheet" href="{% static "blog/index.css" %}" />
 {% endblock %}
 ```
+
+### 7. Manejo de Imagenes
+
+* Cargar Imagenes: Crear un directorio llamado images en el siguiente directorio y almacenar las fotos
+> app_name/static/app_name/images
+* En los templates las iamgenes se cargan de la siguiente manera:
+`<img src="{% static "blog/images/mountains.jpg" %}">`
