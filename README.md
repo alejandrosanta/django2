@@ -119,8 +119,7 @@ def post_detail(request):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}{% endblock %}</title>
-        {% block css_files %}{%  endblock %}    
+        <title>{% block title %}{% endblock %}</title>  
     </head>
     <body>
         {% block content %}{%  endblock %}
@@ -159,4 +158,27 @@ INSTALLED_APPS = [
 ```python
 def starting_page(request):
     return render(request, "blog/index.html")
+```
+
+* Crear un directorio llamado static en la raiz y en el directorio de la App y los correspondientes ficheros
+> app_name/static/app_name/index.css
+> /static/app.css
+
+* Modificar el fichero base.html agregando:
+`{% load static %}`
+` <link rel="stylesheet" href="{% static "app.css" %}">`
+`{% block css_files %}{%  endblock %}`  
+
+* Modificar settings.py agreagando:
+```python
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
+```
+* Modificar el fichero index.html agregando:
+`{% load static %}`
+```html
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "blog/index.css" %}" />
+{% endblock %}
 ```
