@@ -110,8 +110,7 @@ def post_detail(request):
 ### 7. Agregar Templates
 * Crear directorio templates en el directorio raiz y un fichero llamado base.html con la estructura basica HTML5
 1. Block title
-2. Block css_files
-3. Block content
+2. Block content
 > templates/base.html
 ```html
 <!DOCTYPE html>
