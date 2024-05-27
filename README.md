@@ -159,6 +159,8 @@ def starting_page(request):
     return render(request, "blog/index.html")
 ```
 
+### 8. Agregar CSS
+
 * Crear un directorio llamado static en la raiz y en el directorio de la App y los correspondientes ficheros
 > app_name/static/app_name/index.css
 > /static/app.css
@@ -182,7 +184,29 @@ STATICFILES_DIRS = [
 {% endblock %}
 ```
 
-### 7. Manejo de Imagenes
+### 9. Manejo de Include
+
+* Crear un directorio llamado includes en el siguiente directorio:
+> app_name/template/app_name/includes
+* Crear un archivo con el codigo que se quiere replicar:
+```html
+{% load static%}
+<li>
+    <article class="post">
+        <a href="">
+            <img src="{% static "blog/images/mountains.jpg" %}" alt="Comentario de la Imagen">
+            <div class="post__content">
+                <h3>Title Title</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+            </div>
+        </a>
+    </article>
+</li>
+```
+* En loa archivos que se desea invocar ese codigo se hace de la sigiente manera:
+`{% include "blog/includes/post.html" %}`
+
+### 10. Manejo de Imagenes
 
 * Cargar Imagenes: Crear un directorio llamado images en el siguiente directorio y almacenar las fotos
 > app_name/static/app_name/images
