@@ -220,3 +220,40 @@ STATICFILES_DIRS = [
 `<a href="{% url "starting-page" %}">`
 El nombre "starting-page" utilizado viene del name en: 
  > app_name/urls.py
+
+### 12. Enviar data a la vista
+* Estructurar la data
+```python
+all_posts = [
+    {
+        "slug": "hike-in-the-mountains",
+        "image": "mountains.jpg",
+        "author": "Maximilian",
+        "date": date(2021, 7, 21),
+        "title": "Mountain Hiking",
+        "excerpt": "There's nothing like the views you get when hiking in the mountains! And I wasn't even prepared for what happened whilst I was enjoying the view!",
+        "content": "Lorem ipsum dolor"
+    }
+]
+```
+* Enviar la data a la vista
+```python
+def posts(request):
+    return render(request, "blog/all-posts.html", {
+        "all_posts": all_posts
+    })
+```
+* Utilizar la data en la vista
+```html
+<li>
+    <article class="post">
+        <a href="{% url "post-detail-page" post.slug%}">
+            <img src="{% static "blog/images/"|add:post.image %}" alt="{{ post.title }}">
+            <div class="post__content">
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.excerpt }}</p>
+            </div>
+        </a>
+    </article>
+</li>
+```
