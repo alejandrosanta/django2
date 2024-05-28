@@ -257,3 +257,7 @@ def posts(request):
     </article>
 </li>
 ```
+
+### 13. Crear pagina 404
+* Crear el fichero 404.html en:
+> app_name/template/app_name/404.html
