@@ -212,3 +212,11 @@ STATICFILES_DIRS = [
 > app_name/static/app_name/images
 * En los templates las iamgenes se cargan de la siguiente manera:
 `<img src="{% static "blog/images/mountains.jpg" %}">`
+
+
+### 11. Linking Paginas
+
+* Para linkear paginas se debe utilizar la siguiente estructura:
+`<a href="{% url "starting-page" %}">`
+El nombre "starting-page" utilizado viene del name en: 
+ > app_name/urls.py
