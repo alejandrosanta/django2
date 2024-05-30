@@ -46,6 +46,8 @@ Crear Cuenta: [Enlace a GitHub](https://github.com)
 `$ django-admin startproject my_project`
 > Algunas veces solo permite crear el proyecto con usuario root
 > El comando crea el directorio del proyecto
+> Si se crea el proyecto con root, cambiar usuario y grupo
+`chown -R user.group my_project/`
 
 ### 2. Crear el repositorio
 [Enlace a GitHub](https://github.com/)
@@ -55,7 +57,7 @@ Crear Cuenta: [Enlace a GitHub](https://github.com)
 `$ git init`
 > Ejecutar el anterior comando dentro del diretorio que se creo al crear el proyecto de django
 
-`$ git add.`
+`$ git add .`
 `$ git commit -m "My first commit"`
 `$ git remote add origin https://github.com/user/my_proyect.git`
 `$ git push -u origin main`
@@ -247,7 +249,7 @@ def posts(request):
 ```html
 <li>
     <article class="post">
-        <a href="{% url "post-detail-page" post.slug%}">
+        <a href="{% url "post-detail-page" post.slug %}">
             <img src="{% static "blog/images/"|add:post.image %}" alt="{{ post.title }}">
             <div class="post__content">
                 <h3>{{ post.title }}</h3>
