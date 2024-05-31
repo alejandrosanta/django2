@@ -263,3 +263,56 @@ def posts(request):
 ### 13. Crear pagina 404
 * Crear el fichero 404.html en:
 > app_name/template/app_name/404.html
+
+### 14. Une el modelo con la Vista
+> app_name/views.py
+```python
+from django.shortcuts import render, get_object_or_404
+from .models import Post
+
+def starting_page(request):
+    latest_posts = Post.objects.all().order_by("-date")[:3]
+    #sorted_posts = sorted(all_posts,key=get_date)
+    #latest_posts = sorted_posts[-3:]
+    return render(request, "blog/index.html", {
+        "posts": latest_posts
+    })
+
+def posts(request):
+    all_posts = Post.objects.all()
+    return render(request, "blog/all-posts.html", {
+        "all_posts": all_posts
+    })
+
+def post_detail(request, slug):
+    #identified_post = next(post for post in all_posts if post['slug']== slug)
+    #identified_post = Post.objects.get(slug=slug)
+    identified_post = get_object_or_404(Post, slug=slug)
+    return render(request, "blog/post-detail.html", {
+        "post": identified_post,
+        "post_tags": identified_post.tag.all()
+    })
+```
+> app_name/templates/app_name/post-details.html
+```html
+{% block content %}
+    <section id="summary">
+        <h2>{{ post.title }}</h2>
+        <div>
+            {% for tag in post_tags %}
+                <span class="tag">{{ tag.caption }}</span>
+            {% endfor %}
+        </div>
+        <article>
+            <img src="{% static "blog/images/"|add:post.image_name %}" alt={{ post.title }} /> 
+            <address>By <a href="mailto:{{post.author.email_address}}">{{ post.author }}</a></address>
+            <div>Last update on <time>{{ post.date|date:"d M Y" }}</time></div>
+        </article>
+    </section>
+    <main>
+        {{ post.content }}
+    </main>
+{% endblock %}
+```
+
+
