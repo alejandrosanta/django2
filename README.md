@@ -357,5 +357,33 @@ def post_detail(request, slug):
 ```
 
 > $python3 -m pip install Pillow
+>
 > $python3 manage.py makemigrations
-> $python3 manage.py migrate   
+>
+> $python3 manage.py migrate
+
+### 16. Serving Uploaded Files
+
+> app_name/templates/app_name/post-details.html
+```html
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" /> 
+```
+
+> app_name/templates/app_name/includes/post.html
+```html
+    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+```
+
+> settings.py
+```python
+    from django.contrib import admin
+    from django.urls import path, include
+    from django.conf.urls.static import static
+    from django.conf import settings
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        # path('blog', include("blog.urls")) # http:localhost:8000/blog/posts/my-first-post
+        path('', include("blog.urls"))
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
