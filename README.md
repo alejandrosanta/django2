@@ -423,3 +423,55 @@ def post_detail(request, slug):
             context["post_tags"] = self.object.tag.all()
             return context
 ```
+
+### 18. Adding a Comment Model
+
+> app_name/models.py
+```python
+    class Comment(models.Model):
+        user_name = models.CharField(max_length=120)
+        user_email = models.EmailField()
+        text = models.CharField(max_length=400)
+        post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
+```
+
+### 19. Adding a Comment Form
+
+> app_name/forms.py
+```python
+    from django import forms
+    from .models import Comment
+
+    class CommentForm(forms.ModelForm):
+        class Meta:
+            model = Comment
+            exclude = ["post"]
+            labels = { 
+                "user_name": "Your Name",
+                "user_email": "Your Email",
+                "text": "Your Comment"
+            }
+```
+> app_name/views.py
+```python
+    from .forms import CommentForm
+
+    class SinglePostView(DetailView):
+        template_name = "blog/post-detail.html"
+        model = Post
+
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context["post_tags"] = self.object.tag.all()             
+            context["comment_form"] = CommentForm()
+            return context
+```
+> app_name/templates/app_name/post-details.html
+```html
+    <div>
+        <form>
+            {{ comment_form }}
+            <button>Save Comment</button>
+        </form>
+    </div> 
+```
