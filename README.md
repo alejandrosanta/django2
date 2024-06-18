@@ -475,3 +475,22 @@ def post_detail(request, slug):
         </form>
     </div> 
 ```
+
+### 20. Styling the Comment Form
+
+> app_name/templates/app_name/post-details.html
+```html
+    <section id="comment-form">
+        <h2>Your Commnent</h2>
+        <form >
+            {% for form_field in comment_form %}
+                <div class="form-control">
+                    {{ form_field.label_tag }}
+                    {{ form_field }}
+                    {{ form_field.errors }}
+                </div>
+            {% endfor %}
+        <button>Save Comment</button>
+        </form>
+    </section>
+```
