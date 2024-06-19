@@ -10,3 +10,6 @@ class CommentForm(forms.ModelForm):
             "user_email": "Your Email",
             "text": "Your Comment"
         }
+        widgets = {
+            'text': forms.Textarea(),
+        }

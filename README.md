@@ -494,3 +494,42 @@ def post_detail(request, slug):
         </form>
     </section>
 ```
+
+### 21. Handling Comment Form Submission
+
+> app_name/views.py
+```python
+class SinglePostView(View):
+    def get(self, request, slug):
+        post = Post.objects.get(slug=slug)
+        context = {
+            "post": post,
+            "post_tags": post.tag.all(),
+            "comment_form": CommentForm() 
+        }
+        return render(request, "blog/post-detail.html", context)
+    
+    def post(self, request, slug):
+        comment_form = CommentForm(request.POST)
+        post = Post.objects.get(slug=slug)
+        
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.post = post
+            comment.save()
+
+            return HttpResponseRedirect(reverse("post-detail-page", args=[slug]))
+        
+        context = {
+            "post": post,
+            "post_tags": post.tag.all(),
+            "comment_form": comment_form
+        }
+        return render(request, "blog/post-detail.html", context)
+```
+
+> app_name/templates/app_name/post-details.html
+```html
+    <form action="{% url "post-detail-page" post.slug %}" method="POST">
+        {% csrf_token %}
+```
