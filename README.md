@@ -533,3 +533,21 @@ class SinglePostView(View):
     <form action="{% url "post-detail-page" post.slug %}" method="POST">
         {% csrf_token %}
 ```
+
+### 22. Comment Form Validation Styles
+
+> app_name/templates/app_name/post-details.html
+```html
+
+    {% if comment_form.errors %}
+    <div id="alert">
+        <h2>Saving the comment failed!</h2>
+        <p>Please check the comment form below the post and fix your errors.</p>
+        <a href="#comment-form">Fix</a>
+    </div>
+    {% endif %}
+
+
+    <div class="form-control {% if form_field.errors %}invalid{% endif %}">
+
+```
