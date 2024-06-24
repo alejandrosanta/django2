@@ -23,8 +23,9 @@ Comprobar Instalacion
 Instalar: [Enlace a Git](https://git-scm.com)
 
 Configuracion Inicial 
-`$ git config --global user.name "Tu Nombre"`
-`$ git config --global user.email "tu-email@ejemplo.com"`
+>`$ git config --global user.name "Tu Nombre"`
+>
+>`$ git config --global user.email "tu-email@ejemplo.com"`
 
 Verificar Configuracion
 `$ git config --global --list`
@@ -546,8 +547,26 @@ class SinglePostView(View):
         <a href="#comment-form">Fix</a>
     </div>
     {% endif %}
-
-
     <div class="form-control {% if form_field.errors %}invalid{% endif %}">
+```
 
+### 23. Outputting Comments
+
+> app_name/templates/app_name/post-details.html
+```html
+    <section id="comments">
+        <ul>
+            {% for comment in comments %}
+                <li>
+                    <h2>{{ comment.user_name }}</h2>
+                    <p>{{ comment.text|linebreaks }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+```
+
+> app_name/views.py
+```python
+    "comments": post.comments.all().order_by("-id")
 ```
