@@ -375,7 +375,7 @@ def post_detail(request, slug):
     <img src="{{ post.image.url }}" alt="{{ post.title }}">
 ```
 
-> settings.py
+> project_name/urls.py
 ```python
     from django.contrib import admin
     from django.urls import path, include
@@ -699,3 +699,71 @@ class SinglePostView(View):
         </section>
     {% endblock %}
 ```
+
+## DEPLOYMENT
+
+### Settings
+> settings.py
+```python
+    DEBUG = False
+
+    STATIC_ROOT = BASE_DIR / "staticfiles"
+```
+
+### Collecting Static Files
+`$ python3 manage.py collectstatic`
+
+### Serving Static Files
+> project_name/urls.py
+```python
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+```
+
+### Locking in Dependencies creando un ambiente virtual 
+> Crear un ambiente Virtual
+`python3 -m venv django_my_site`
+
+> Abrir una nueva pestana en la terminal e instalar las dependencias
+`python3 -m pip install Django Pillow`
+
+> Crea el archivo requirements.txt con las dependencias necesarias para desplegar
+`python3 -m pip freeze > requirements.txt`
+
+### Environment Variables
+> project_name/settings.py
+```python
+    from os import getenv
+
+    DEBUG = getenv("IS_PRODUCTION", True)
+
+    ALLOWED_HOSTS = [
+        getenv("APP_HOST")
+    ]
+```
+
+### Deploying with Elastic Beanstalk
+En la raiz crear directorio .ebextensions y dentro de este directorio el fichero django.config
+> .ebextensions/django.config
+```
+option_settings:
+  aws:elasticbeanstalk:container:python:
+    WSGIPath: my_site.wsgi:application
+```
+
+### AWS - Elastic Beanstalk
+1. Web server environment
+2. Application name: django-blog
+3. Environment name: Django-blog-env-1
+4. Platform: Python
+5. Upload your code
+6. Version label: django-blog-version-1
+7. Local file: mysite.zip
+8. Configuration presets: Single instance (free tier eligible)
+9. Enviroment properties
+    IS_PRODUCTION   False
+    APP_HOST        aaa
+
+Create and use new service role
+
+
+
