@@ -58,10 +58,10 @@ Crear Cuenta: [Enlace a GitHub](https://github.com)
 `$ git init`
 > Ejecutar el anterior comando dentro del diretorio que se creo al crear el proyecto de django
 
-`$ git add .`
-`$ git commit -m "My first commit"`
-`$ git remote add origin https://github.com/user/my_proyect.git`
-`$ git push -u origin main`
+>`$ git add .`
+>`$ git commit -m "My first commit"`
+>`$ git remote add origin https://github.com/user/my_proyect.git`
+>`$ git push -u origin main`
 > Solo si hay un error con el primer push se puede ejecutar `$ git push --force origin main`
 
 ### 4. Crear una nueva App en Django
